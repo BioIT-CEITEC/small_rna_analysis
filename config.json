@@ -1,0 +1,24 @@
+{
+    "task_name": "24__raw_fastq_qc__test1__220427",
+    "entity_name": "test1",
+    "check_adaptors": false,
+    "min_adapter_matches": 12,
+    "filesender": false,
+    "recipient": "cfg@ceitec.muni.cz",
+    "message": "Dear customer, we are sending you the prepared fastq files from your sequencing. You have 30 days to download data. Thank you for using our facility. Best regards, Core facility of Bioinformatics and Genomics team.",
+    "is_paired": true,
+    "samples": {
+        "4": {
+            "sample_name": "MK0905fuze"
+        },
+        "5": {
+            "sample_name": "RK9905fuze"
+        },
+        "6": {
+            "sample_name": "OP1707fuze"
+        }
+    },
+    "globalResources": "/mnt/data/ceitec_cfg/shared/S3acgt/resources",
+    "Filesender_credential_file": "/mnt/data/ceitec_cfg/shared/S3acgt/resources/resources_info/.secret/Filesender_credentials.json",
+    "S3_credential_file": "/mnt/data/ceitec_cfg/shared/S3acgt/resources/resources_info/.secret/S3_credentials.json"
+}
