@@ -21,7 +21,7 @@ def raw_fastq_qc_input(wildcards):
         input_fastq_read_pair_tag = ""
     else:
         input_fastq_read_pair_tag = "_" + wildcards.read_pair_tag
-    print(f'{dirname}/raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz')
+    #print(f'{dirname}/raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz')
     return f'{dirname}/raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz'
 
 rule raw_fastq_qc:
