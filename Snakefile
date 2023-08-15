@@ -8,12 +8,14 @@ configfile: "config.json"
 GLOBAL_REF_PATH = config["globalResources"]
 GLOBAL_TMPD_PATH = config["globalTmpdPath"]
 
+dirname = config["globalTaskPath"]
+
 os.makedirs(GLOBAL_TMPD_PATH, exist_ok=True)
 
 ##### Config processing #####
 
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
-
+print(sample_tab)
 if not config["is_paired"]:
     read_pair_tags = ["SE"]
     paired = "SE"
@@ -36,17 +38,23 @@ wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
     read_pair_tag = "R1|R2|SE"
 
-# ##### Target rules #####
-
-
+# ##### Target rules #####§
+#rule all:
+#        input: mirna_res = "quantification/miRNA/mirna_counts.tsv",
+#               non_mirna_res = expand("quantification/non_miRNA/{sample}.tsv",sample=sample_tab.sample_name),
+def all_input(wildcard):
+    if config["filesender"]:
+        return ["qc_reports/raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"]
+    else:
+        return "qc_reports/raw_fastq_multiqc.html"
 
 rule all:
-        input: mirna_res = "quantification/miRNA/mirna_counts.tsv",
-               non_mirna_res = expand("quantification/non_miRNA/{sample}.tsv",sample=sample_tab.sample_name),
+        input: all_input
+
+
 
 ##### Modules #####
-
 include: "rules/fastqc.smk"
-include: "rules/alignment.smk"
-include: "rules/preprocessing.smk"
-include: "rules/quantification.smk"
+#include: "rules/alignment.smk"
+#include: "rules/preprocessing.smk"
+#include: "rules/quantification.smk"
