@@ -39,8 +39,8 @@ rule all:
            "results/qc_reports/multiqc/clean_trim/clean_trim_multiqc.html",
            expand("results/mapped_seqs/miraligner/{sample}.mirna", sample = sample_tab.sample_name),
            expand("results/mapped_seqs/rrna_stats/{sample}_rrna_mapping.txt", sample = sample_tab.sample_name),
-           "results/counts_tables/mirna.mirbase_canonical.tsv",
-           "results/counts_tables/mirna.mirbase_isomiRs.tsv"
+           "results/mirbase_canonical/mirna.mirbase_canonical.tsv",
+           "results/mirbase_isomiRs/mirna.mirbase_isomiRs.tsv"
 
 #### Modules ####
 include: "rules/preprocessing.smk"
