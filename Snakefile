@@ -19,7 +19,6 @@ config["organism"] = config["species_name"].split(" (")[0].lower().replace(" ","
 if len(config["species_name"].split(" (")) > 1:
     config["species"] = config["species_name"].split(" (")[1].replace(")","")
 
-assembly_release = 
 config["assembly"] = config["reference"].split("_")[0]
 config["species"] = config["reference"].split("_")[1]
 
