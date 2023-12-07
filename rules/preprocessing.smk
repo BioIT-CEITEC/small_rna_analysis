@@ -66,17 +66,6 @@ if config["kit"] == "qiaseq":
         conda:   "../wrappers/qiaseq_adapter_removal/env.yaml"
         script:  "../wrappers/qiaseq_adapter_removal/script.py"
 
-def all_qc_outputs(wildcards):
-    inputs = {
-        'first_trim': "results/qc_reports/{sample}_first_trim_fastqc.html",
-        'clean': "results/qc_reports/{sample}_clean_collapsed_fastqc.html",
-    }
-    if config["kit"] != "truseq":
-        inputs['second'] = "results/qc_reports/{sample}_second_trim_fastqc.html"
-    else:
-        inputs
-    return inputs
-
 rule all_quality_control:
         input:   trim = "results/trimmed_seqs/{sample}_first_trim.fastq.gz",
                  clean = "results/trimmed_seqs/{sample}_clean_collapsed.fastq.gz",
