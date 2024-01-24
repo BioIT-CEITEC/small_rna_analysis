@@ -17,23 +17,19 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-cutadapt_path = " ".join([dirname(fastqc_html) for fastqc_html in snakemake.input.first_cutadapt])
-
-command = "multiqc -f -n " + snakemake.output.cutadapt + " " + cutadapt_path + " >> " + log_filename + " 2>&1"
+command = "multiqc -f -n " + snakemake.output.cutadapt + " " + str(snakemake.params.cutadapt) + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-trim_path = " ".join([dirname(fastqc_html) for fastqc_html in snakemake.input.first_trim])
-
-command = "multiqc -f -n "  + snakemake.output.clean +  " " +  trim_path + " " + snakemake.params.clean + " >> " + log_filename + " 2>&1"
+command = "multiqc -f -n "  + snakemake.output.clean +  " " +  str(snakemake.params.folder) + " " + snakemake.params.clean + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "multiqc -f -n " + snakemake.output.untrim_short + " " + trim_path + " " + snakemake.params.others + " >> " + log_filename + " 2>&1"
+command = "multiqc -f -n " + snakemake.output.untrim_short + " " + str(snakemake.params.folder) + " " + snakemake.params.others + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()

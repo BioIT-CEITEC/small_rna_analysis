@@ -4,7 +4,6 @@
 
 import subprocess
 from os.path import dirname
-from os.path import basename
 from snakemake.shell import shell
 
 shell.executable("/bin/bash")
@@ -19,10 +18,10 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-command = "mkdir -p " + dirname(snakemake.output.clean) + " >> " + log_filename + " 2>&1"
-
-command = "fastqc --outdir " + dirname(snakemake.output.trim) + " --format " + str(snakemake.params.formats) + " --threads " + str(snakemake.threads) + " " + dirname(snakemake.input.trim) + "/*.fastq.gz >> " + log_filename + " 2>&1"
+command = "fastqc --outdir " + dirname(snakemake.output.trim) + " --format " + str(snakemake.params.formats) + \
+          " --threads " + str(snakemake.threads) + " " + dirname(snakemake.input.clean) + "/" + snakemake.wildcards.sample + ".*.fastq.gz  >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
+

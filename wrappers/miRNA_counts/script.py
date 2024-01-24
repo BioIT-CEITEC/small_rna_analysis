@@ -3,13 +3,14 @@
 ###########################################
 import subprocess
 import os
+from os.path import dirname
 from snakemake.shell import shell
 
 shell.executable("/bin/bash")
 log_filename = str(snakemake.log)
 
 f = open(log_filename, "wt")
-f.write("\n##\n## RULE: mirna counts \n##\n")
+f.write("\n##\n## RULE: merge first qc \n##\n")
 f.close()
 
 version = str(subprocess.Popen("conda list", shell = True, stdout = subprocess.PIPE).communicate()[0], 'utf-8')
@@ -21,11 +22,10 @@ current_directory = os.getcwd()
 specific_folder = "results/mapped_seqs/miraligner"
 working_folder = os.path.join(current_directory, specific_folder)
 
-final_folder = "results/"
-target_folder = os.path.join(current_directory, final_folder)
+command = "Rscript "+os.path.abspath(os.path.dirname(__file__))+"/miraligner_new.R "+\
+            working_folder + " >> " + log_filename + " 2>&1 "
 
-command = "Rscript " + str(snakemake.params.script_counts) + " " + working_folder + " " + target_folder + " >> " + log_filename + " 2>&1"
-f = open(log_filename, "at")
-f.write("\n##\n## COMMAND: " + command + "\n")
+f = open(log_filename, 'a+')
+f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
