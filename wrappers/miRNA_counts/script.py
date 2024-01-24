@@ -22,7 +22,7 @@ current_directory = os.getcwd()
 specific_folder = "results/mapped_seqs/miraligner"
 working_folder = os.path.join(current_directory, specific_folder)
 
-command = "Rscript "+os.path.abspath(os.path.dirname(__file__))+"/miraligner_new.R "+\
+command = "Rscript "+os.path.abspath(os.path.dirname(__file__))+"/mirna_counts.R "+\
             working_folder + " >> " + log_filename + " 2>&1 "
 
 f = open(log_filename, 'a+')
