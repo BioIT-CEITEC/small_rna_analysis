@@ -43,8 +43,8 @@ rule mirna_alignment:
 rule mirna_counts:
         input:  mirna = expand("results/mapped_seqs/miraligner/{sample}.mirna", sample = sample_tab.sample_name)
         output: "results/mapped_seqs/miraligner/mirna.mirbase_canonical.tsv",
-                #canon_counts = expand("results/qc_reports/{sample}/mirbase_canonical/{sample}.mirbase_canonical.tsv", sample = sample_tab.sample_name),
-                #isomir_counts = expand("results/qc_reports/{sample}/mirbase_isomiRs/{sample}.mirbase_isomiRs.tsv", sample = sample_tab.sample_name)
+                canon_counts = expand("results/qc_reports/{sample}/mirbase_canonical/{sample}.mirbase_canonical.tsv", sample = sample_tab.sample_name),
+                isomir_counts = expand("results/qc_reports/{sample}/mirbase_isomiRs/{sample}.mirbase_isomiRs.tsv", sample = sample_tab.sample_name)
         log:    "logs/counts/canonical_isomiRs_counts.log"
         params: script_counts = config["script_counts"]
         conda:  "../wrappers/miRNA_counts/env.yaml"
