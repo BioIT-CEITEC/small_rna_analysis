@@ -19,7 +19,7 @@ f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
 if snakemake.params.kit != "truseq" or snakemake.params.kit != "nextflex_v4":
-    flag = snakemake.params.extra + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + "_first_untrim.fastq.gz"
+    flag = " --untrimmed-output " + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + "_first_untrim.fastq.gz"
 else:
     flag = ""
 

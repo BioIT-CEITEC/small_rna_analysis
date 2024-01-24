@@ -23,7 +23,7 @@ f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "java -jar " + str(snakemake.params.miraligner) + " -freq -sub " + str(snakemake.params.mir_mismatch) + \
+command = "java -jar resources/miraligner_3.5/miraligner.jar -freq -sub " + str(snakemake.params.mir_mismatch) + \
     " -trim " + str(snakemake.params.mir_trim) + " -add " + str(snakemake.params.mir_add) + " -minl " + str(snakemake.params.mir_minl) + \
     " -s " + str(snakemake.params.species) + " -i " + str(snakemake.input.unmapped).replace(".gz", "") + " -db " + str(snakemake.params.database) + \
     " -o " + str(snakemake.output.mirna).replace(".mirna", "") + " >> " + log_filename + " 2>&1"

@@ -30,8 +30,7 @@ rule mirna_alignment:
                  unmapped = "results/mapped_seqs/miraligner/{sample}.mirna.unmapped.fastq.gz",
         log:     "logs/mapping/{sample}/miraligner.log"
         threads: config["preprocessing"][config["kit"]]["threads"]
-        params:  miraligner = config["miraligner"],
-                 mir_mismatch = config["mir_mismatch"],
+        params:  mir_mismatch = config["mir_mismatch"],
                  mir_trim = config["mir_trim"],
                  mir_add = config["mir_add"],
                  mir_minl = config["mir_minl"],
@@ -45,6 +44,5 @@ rule mirna_counts:
         output: canon_counts = expand("results/qc_reports/{sample}/mirbase_canonical/{sample}.mirbase_canonical.tsv", sample = sample_tab.sample_name),
                 isomir_counts = expand("results/qc_reports/{sample}/mirbase_isomiRs/{sample}.mirbase_isomiRs.tsv", sample = sample_tab.sample_name)
         log:    "logs/counts/canonical_isomiRs_counts.log"
-        params: script_counts = config["script_counts"]
         conda:  "../wrappers/miRNA_counts/env.yaml"
         script: "../wrappers/miRNA_counts/script.py"

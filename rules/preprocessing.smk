@@ -14,7 +14,6 @@ rule first_adapter_removal_next:
              disc_short = config["preprocessing"][config["kit"]]["disc_short"],
              max_n = config["preprocessing"][config["kit"]]["max_n"],
              kit = config["kit"],
-             extra = " --untrimmed-output "
     conda:   "../wrappers/first_trim/env.yaml"
     script:  "../wrappers/first_trim/script.py"
 
@@ -24,8 +23,6 @@ if config["kit"] == "truseq" or config["kit"] == "nextflex_v4":
         output:  cleaned = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
         log:     "logs/collapse_samples/{sample}/collapse_sequences.log"
         threads: config["preprocessing"][config["kit"]]["threads"]
-        params:  extra = config["extra"],
-                 script = config["script"],
         conda:   "../wrappers/truseq_collapse/env.yaml"
         script:  "../wrappers/truseq_collapse/script.py"
 
@@ -62,10 +59,7 @@ if config["kit"] == "qiaseq":
                  remove_adap = config["preprocessing"][config["kit"]]["adapters_to_remove"],
                  disc_short = config["preprocessing"][config["kit"]]["disc_short"],
                  min_length = config["preprocessing"][config["kit"]]["min_length"],
-                 max_n = config["preprocessing"][config["kit"]]["max_n"],
-                 extra = config["extra"],
-                 script = config["script"],
-                 bbmap = config["bbmap"]
+                 max_n = config["preprocessing"][config["kit"]]["max_n"]
         conda:  "../wrappers/qiaseq_adapter_removal/env.yaml"
         script: "../wrappers/qiaseq_adapter_removal/script.py"
 
@@ -101,10 +95,7 @@ rule merge_all_qc_next:
     log:     "logs/merge_qc/first_merge_qc_reports.log"
     threads: config["preprocessing"][config["kit"]]["threads"],
     params:  clean = "--ignore \"*short*\" --ignore \"*untrim*\"",
-             formats = config["preprocessing"][config["kit"]]["format"],
              others = "--ignore \"*collapsed*\" --ignore \"*first_trim*\" --ignore \"*second_trim*\"",
-             folder = "results/qc_reports",
-             cutadapt = "results/trimmed_seqs/cutadapt"
     conda:   "../wrappers/merge_qc/env.yaml"
     script:  "../wrappers/merge_qc/script.py"
 
@@ -113,6 +104,5 @@ rule sequence_counts:
     output:  summary = "results/sequences_summary/{sample}.sequences_summary.txt"
     log:     "logs/sequence_counts/{sample}/sequences_summary.log"
     threads: config["preprocessing"][config["kit"]]["threads"]
-    params:  folder = "results/sequences_summary/zip_folder"
     conda:   "../wrappers/sequence_counts/env.yaml"
     script:  "../wrappers/sequence_counts/script.py"

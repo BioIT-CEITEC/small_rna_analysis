@@ -17,19 +17,19 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-command = "multiqc -f -n " + snakemake.output.cutadapt + " " + str(snakemake.params.cutadapt) + " >> " + log_filename + " 2>&1"
+command = "multiqc -f -n " + snakemake.output.cutadapt + " results/trimmed_seqs/cutadapt >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "multiqc -f -n "  + snakemake.output.clean +  " " +  str(snakemake.params.folder) + " " + snakemake.params.clean + " >> " + log_filename + " 2>&1"
+command = "multiqc -f -n "  + snakemake.output.clean +  " results/qc_reports " + snakemake.params.clean + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "multiqc -f -n " + snakemake.output.untrim_short + " " + str(snakemake.params.folder) + " " + snakemake.params.others + " >> " + log_filename + " 2>&1"
+command = "multiqc -f -n " + snakemake.output.untrim_short + " results/qc_reports " + snakemake.params.others + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()

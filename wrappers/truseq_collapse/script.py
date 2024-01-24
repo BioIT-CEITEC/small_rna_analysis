@@ -18,13 +18,13 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-command = "pigz -d -c -p " + str(snakemake.threads) + " " + str(snakemake.input.trimmed) + " | fastx_collapser | reformat.sh " + snakemake.params.extra + " > " + str(snakemake.input.trimmed).replace(".fastq.gz", ".tmp")
+command = "pigz -d -c -p " + str(snakemake.threads) + " " + str(snakemake.input.trimmed) + " | fastx_collapser | reformat.sh qfake=40 in=stdin.fa out=stdout.fq > " + str(snakemake.input.trimmed).replace(".fastq.gz", ".tmp")
 f = open(log_filename, "at")
 f.write("\n#\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "python " + snakemake.params.script + " " + str(snakemake.input.trimmed).replace(".fastq.gz", ".tmp") + " >> " + log_filename + " 2>&1"
+command = "python resources/change_header_format.py " + str(snakemake.input.trimmed).replace(".fastq.gz", ".tmp") + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
