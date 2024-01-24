@@ -44,7 +44,7 @@ f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "mv " + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + ".second_trim.clean_collapsed.fastq.gz" + snakemake.output.cleaned + " >> " + log_filename + " 2>&1"
+command = "mv " + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + ".second_trim.clean_collapsed.fastq.gz " + snakemake.output.cleaned + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
