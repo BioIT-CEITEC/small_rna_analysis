@@ -86,7 +86,7 @@ def multiqc_input(wildcards):
         'first_cutadapt': expand("results/trimmed_seqs/cutadapt/{sample}.first_trim_cutadapt.txt", sample = sample_tab.sample_name),
         'clean': expand("results/qc_reports/{sample}.clean_collapsed_fastqc.html", sample = sample_tab.sample_name)
         }
-    if config["kit"] == "nextflex_v3":
+    if config["kit"] == "nextflex_v3" or config["kit"] == "qiaseq:
         inputs['second_trim'] = expand("results/qc_reports/{sample}.second_trim_fastqc.html", sample = sample_tab.sample_name)
         inputs['second_cutadapt'] = expand("results/trimmed_seqs/cutadapt/{sample}.second_trim_cutadapt.txt", sample = sample_tab.sample_name)
     else:
