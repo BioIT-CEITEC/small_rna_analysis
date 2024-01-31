@@ -38,3 +38,27 @@ f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
+
+command = "pigz -d -c -p " + str(snakemake.threads) + " " + snakemake.output.trimmed + " | fastx_collapser | reformat.sh qfake=40 in=stdin.fa out=stdout.fq > " + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + ".second_trim.tmp"
+f = open(log_filename, "at")
+f.write("\n#\n## COMMAND: " + command + "\n")
+f.close()
+shell(command)
+
+command = "python resources/change_header_format.py " + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + ".second_trim.tmp >> " + log_filename + " 2>&1"
+f = open(log_filename, "at")
+f.write("\n##\n## COMMAND: " + command + "\n")
+f.close()
+shell(command)
+
+command = "pigz -p " + str(snakemake.threads) + " " + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + ".second_trim.clean_collapsed.fastq"
+f = open(log_filename, "at")
+f.write("\n##\n## COMMAND: " + command + "\n")
+f.close()
+shell(command)
+
+command = "mv " + dirname(snakemake.output.trimmed) + "/" + snakemake.wildcards.sample + ".second_trim.clean_collapsed.fastq.gz " + snakemake.output.second_collapse + " >> " + log_filename + " 2>&1"
+f = open(log_filename, "at")
+f.write("\n##\n## COMMAND: " + command + "\n")
+f.close()
+shell(command)
