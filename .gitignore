@@ -1,2 +1,4 @@
 # custom files
-resources/
+raw_fastq/
+results/
+
