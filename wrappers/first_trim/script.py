@@ -1,7 +1,7 @@
 ###########################################
 # wrapper for rule: miRNA_preprocessing
 ###########################################
-# comment try
+
 import subprocess
 from os.path import dirname
 from snakemake.shell import shell
