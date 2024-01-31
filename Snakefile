@@ -1,21 +1,36 @@
 import pandas as pd
 import json
 import os
-#from snakemake import min_version
+from snakemake.utils import min_version
 
-#min_version("")
+min_version("5.18.0")
 
 configfile: "config.json"
 
 GLOBAL_REF_PATH = config["globalResources"]
 GLOBAL_TMPD_PATH = config["globalTmpdPath"]
 
-#### Config processing ####
+os.makedirs(GLOBAL_TMPD_PATH, exist_ok=True)
 
-sample_tab = pd.DataFrame.from_dict(config["samples"], orient = "index")
+##### BioRoot utilities #####
+module BR:
+    snakefile: gitlab("bioroots/bioroots_utilities", path="bioroots_utilities.smk",branch="master")
+    config: config
+
+use rule * from BR as other_*
+
+##### Config processing #####
+
+sample_tab = BR.load_sample()
+
+config = BR.load_organism()
+
+tools = BR.load_tooldir()
 
 wildcard_constraints:
-    sample = "|".join(sample_tab.sample_name),
+    sample = "|".join(sample_tab.sample_name)
+
+reference_directory = os.path.join(GLOBAL_REF_PATH,"references",config["organism"])
 
 #### Target rules ####
 rule all:

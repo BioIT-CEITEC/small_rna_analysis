@@ -1,5 +1,6 @@
 rule rrna_mapping:
-    input: clean = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
+    input: clean = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz",
+           rrna = expand("{ref_dir}/mirgenedb/tool_data/STAR", ref_dir = reference_directory)
     output: bam = "results/mapped_seqs/{sample}.rnar.Aligned.out.bam",
             log_final = "results/mapped_seqs/{sample}.rnar.Log.final.out",
             log = "results/mapped_seqs/{sample}.rnar.Log.out",
@@ -8,9 +9,8 @@ rule rrna_mapping:
             unmapped = "results/mapped_seqs/{sample}.rnar.Unmapped.out.fastq.gz",
             mapping_stats = "results/mapped_seqs/rrna_stats/{sample}_rrna_mapping.txt"
     log: "logs/mapping/{sample}/rrna_mapping.log"
-    threads: config["preprocessing"][config["kit"]]["threads"]
+    threads: 10
     params: nthreads = config["nthreads"],
-            genome_ref = config["genome_ref"],
             max_multimap = config["max_multimap"],
             min_multimap = config["min_multimap"],
             filter_mismatch = config["filter_mismatch"],
@@ -25,17 +25,18 @@ rule rrna_mapping:
     script: "../wrappers/rrna_mapping/script.py"
 
 rule mirna_alignment:
-        input:   unmapped = "results/mapped_seqs/{sample}.rnar.Unmapped.out.fastq.gz"
+        input:   unmapped = "results/mapped_seqs/{sample}.rnar.Unmapped.out.fastq.gz",
+                 miraligner_db = expand("{ref_dir}/mirgenedb/seq", ref_dir = reference_directory)
         output:  mirna = "results/mapped_seqs/miraligner/{sample}.mirna",
                  unmapped = "results/mapped_seqs/miraligner/{sample}.mirna.unmapped.fastq.gz",
         log:     "logs/mapping/{sample}/miraligner.log"
-        threads: config["preprocessing"][config["kit"]]["threads"]
+        threads: 10
         params:  mir_mismatch = config["mir_mismatch"],
                  mir_trim = config["mir_trim"],
                  mir_add = config["mir_add"],
                  mir_minl = config["mir_minl"],
-                 species = config["species"],
-                 database = config["database"]            
+                 species = config["organism_code"],
+                 miraligner = config["tooldir"] + "/miraligner/miraligner_3.5/miraligner.jar"
         conda:   "../wrappers/miraligner/env.yaml"
         script:  "../wrappers/miraligner/script.py"
 
@@ -44,5 +45,6 @@ rule mirna_counts:
         output: canon_counts = expand("results/qc_reports/{sample}/mirbase_canonical/{sample}.mirbase_canonical.tsv", sample = sample_tab.sample_name),
                 isomir_counts = expand("results/qc_reports/{sample}/mirbase_isomiRs/{sample}.mirbase_isomiRs.tsv", sample = sample_tab.sample_name)
         log:    "logs/counts/canonical_isomiRs_counts.log"
+        threads: 10
         conda:  "../wrappers/miRNA_counts/env.yaml"
         script: "../wrappers/miRNA_counts/script.py"

@@ -5,14 +5,14 @@ rule first_adapter_removal_next:
              text = "results/trimmed_seqs/cutadapt/{sample}.first_trim_cutadapt.txt",
              qual_filter = "results/trimmed_seqs/{sample}.first_trim.lowQclean.fastq.gz"
     log:     "logs/first_trim/{sample}/first_trim.log"
-    threads: config["preprocessing"][config["kit"]]["threads"]
-    params:  quality_base = config["preprocessing"][config["kit"]]["quality_base"],
-             adapter = config["preprocessing"][config["kit"]]["adapter_seq"],
-             error_rate = config["preprocessing"][config["kit"]]["error_rate"],
-             min_overlap = config["preprocessing"][config["kit"]]["min_overlap"],
-             remove_adap = config["preprocessing"][config["kit"]]["adapters_to_remove"],
-             disc_short = config["preprocessing"][config["kit"]]["disc_short"],
-             max_n = config["preprocessing"][config["kit"]]["max_n"],
+    threads: 10
+    params:  quality_base = ["quality_base"],
+             adapter = ["adapter_seq"],
+             error_rate = ["error_rate"],
+             min_overlap = ["min_overlap"],
+             remove_adap = ["adapters_to_remove"],
+             disc_short = ["disc_short"],
+             max_n = ["max_n"],
              kit = config["kit"],
     conda:   "../wrappers/first_trim/env.yaml"
     script:  "../wrappers/first_trim/script.py"
@@ -22,7 +22,7 @@ if config["kit"] == "truseq" or config["kit"] == "nextflex_v4":
         input:   trimmed = "results/trimmed_seqs/{sample}.first_trim.lowQclean.fastq.gz"
         output:  cleaned = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
         log:     "logs/collapse_samples/{sample}/collapse_sequences.log"
-        threads: config["preprocessing"][config["kit"]]["threads"]
+        threads: 10
         conda:   "../wrappers/truseq_collapse/env.yaml"
         script:  "../wrappers/truseq_collapse/script.py"
 
@@ -33,12 +33,9 @@ if config["kit"] == "nextflex_v3":
                  text = "results/trimmed_seqs/cutadapt/{sample}.second_trim_cutadapt.txt",
                  cleaned = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
         log:     "logs/second_trim/{sample}/second_trim.log"
-        threads: config["preprocessing"][config["kit"]]["threads"]
-        params:  left_trim = config["preprocessing"][config["kit"]]["left_trim"],
-                 right_trim = config["preprocessing"][config["kit"]]["right_trim"],
-                 extra = config["extra"],
-                 script = config["script"],
-                 bbmap = config["bbmap"]
+        threads: 10
+        params:  left_trim = ["left_trim"],
+                 right_trim = ["right_trim"]
         conda:   "../wrappers/nextflex_adapter_removal/env.yaml"
         script:  "../wrappers/nextflex_adapter_removal/script.py"
 
@@ -51,15 +48,15 @@ if config["kit"] == "qiaseq":
                  text = "results/trimmed_seqs/cutadapt/{sample}.second_trim_cutadapt.txt",
                  second_collapse = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
         log:     "logs/second_trim/{sample}/second_adapter_removal.log"
-        threads: config["preprocessing"][config["kit"]]["threads"]
-        params:  adapter_seq = config["preprocessing"][config["kit"]]["adapter_2"],
-                 quality_base = config["preprocessing"][config["kit"]]["quality_base"],
-                 error_rate = config["preprocessing"][config["kit"]]["error_rate"],
-                 min_overlap = config["preprocessing"][config["kit"]]["min_overlap"],
-                 remove_adap = config["preprocessing"][config["kit"]]["adapters_to_remove"],
-                 disc_short = config["preprocessing"][config["kit"]]["disc_short"],
-                 min_length = config["preprocessing"][config["kit"]]["min_length"],
-                 max_n = config["preprocessing"][config["kit"]]["max_n"]
+        threads: 10
+        params:  adapter_seq = ["second_adapter"],
+                 quality_base = ["quality_base"],
+                 error_rate = ["error_rate"],
+                 min_overlap = ["min_overlap"],
+                 remove_adap = ["adapters_to_remove"],
+                 disc_short = ["disc_short"],
+                 min_length = ["min_length"],
+                 max_n = ["max_n"]
         conda:  "../wrappers/qiaseq_adapter_removal/env.yaml"
         script: "../wrappers/qiaseq_adapter_removal/script.py"
 
@@ -69,8 +66,8 @@ rule all_quality_control:
              clean = "results/qc_reports/{sample}.clean_collapsed_fastqc.html",
              second = "results/qc_reports/{sample}.second_trim_fastqc.html" if config["kit"] == "nextflex_v3" else "results/qc_reports/{sample}.first_short_fastqc.html",
     log:     "logs/final_qc/{sample}/adapt1_trim_qc.log"
-    threads: config["preprocessing"][config["kit"]]["threads"]
-    params:  formats = config["preprocessing"][config["kit"]]["format"]
+    threads: 10
+    params:  formats = ["format"]
     conda:   "../wrappers/quality_control/env.yaml"
     script:  "../wrappers/quality_control/script.py"
 
@@ -93,7 +90,7 @@ rule merge_all_qc_next:
              cutadapt = "results/qc_reports/multiqc/cutadapt/cutadapt_multiqc.html",
              untrim_short = "results/qc_reports/multiqc/untrim_short/untrim_short_multiqc.html"
     log:     "logs/merge_qc/first_merge_qc_reports.log"
-    threads: config["preprocessing"][config["kit"]]["threads"],
+    threads: 10
     params:  clean = "--ignore \"*short*\" --ignore \"*untrim*\"",
              others = "--ignore \"*collapsed*\" --ignore \"*first_trim*\" --ignore \"*second_trim*\"",
     conda:   "../wrappers/merge_qc/env.yaml"
@@ -103,6 +100,6 @@ rule sequence_counts:
     input:   trimmed = "results/qc_reports/{sample}.clean_collapsed_fastqc.html"
     output:  summary = "results/sequences_summary/{sample}.sequences_summary.txt"
     log:     "logs/sequence_counts/{sample}/sequences_summary.log"
-    threads: config["preprocessing"][config["kit"]]["threads"]
+    threads: 10
     conda:   "../wrappers/sequence_counts/env.yaml"
     script:  "../wrappers/sequence_counts/script.py"
