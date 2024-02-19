@@ -23,14 +23,14 @@ use rule * from BR as other_*
 
 sample_tab = BR.load_sample()
 
-config = BR.load_organism()
+config = BR.load_mirna()
 
 tools = BR.load_tooldir()
 
+config["tool_path"] = config["tooldir"] + "/miraligner/miraligner_3.5/miraligner.jar"
+
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name)
-
-reference_directory = os.path.join(GLOBAL_REF_PATH,"references",config["organism"])
 
 #### Target rules ####
 rule all:

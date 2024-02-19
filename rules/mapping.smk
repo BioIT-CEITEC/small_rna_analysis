@@ -1,6 +1,6 @@
 rule rrna_mapping:
     input:  clean = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz",
-            rrna = expand("{ref_dir}/mirgenedb/tool_data/STAR", ref_dir = reference_directory)
+            rrna = config["organism_rrna_star"]
     output: bam = "results/mapped_seqs/{sample}.rnar.Aligned.out.bam",
             log_final = "results/mapped_seqs/{sample}.rnar.Log.final.out",
             log = "results/mapped_seqs/{sample}.rnar.Log.out",
@@ -9,7 +9,7 @@ rule rrna_mapping:
             unmapped = "results/mapped_seqs/{sample}.rnar.Unmapped.out.fastq.gz",
             mapping_stats = "results/mapped_seqs/rrna_stats/{sample}_rrna_mapping.txt"
     log:    "logs/mapping/{sample}/rrna_mapping.log"
-    threads: 10
+    threads: 30
     params: nthreads = config["nthreads"],
             max_multimap = config["max_multimap"],
             min_multimap = config["min_multimap"],
@@ -26,9 +26,9 @@ rule rrna_mapping:
 
 rule mirna_alignment:
     input:  unmapped = "results/mapped_seqs/{sample}.rnar.Unmapped.out.fastq.gz",
-            miraligner_db = expand("{ref_dir}/mirgenedb/seq", ref_dir = reference_directory)
+            miraligner_db = config["organism_mirgene"]
     output: mirna = "results/mapped_seqs/miraligner/{sample}.mirna",
-            unmapped = "results/mapped_seqs/miraligner/{sample}.mirna.unmapped.fastq.gz",
+            unmapped = "results/mapped_seqs/miraligner/{sample}.mirna.unmapped.fastq.gz"
     log:    "logs/mapping/{sample}/miraligner.log"
     threads: 10
     params: mir_mismatch = config["mir_mismatch"],
@@ -36,7 +36,7 @@ rule mirna_alignment:
             mir_add = config["mir_add"],
             mir_minl = config["mir_minl"],
             species = config["organism_code"],
-            miraligner = config["tooldir"] + "/miraligner/miraligner_3.5/miraligner.jar"
+            miraligner = config["tool_path"]
     conda:  "../wrappers/miraligner/env.yaml"
     script: "../wrappers/miraligner/script.py"
 

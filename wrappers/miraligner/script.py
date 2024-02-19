@@ -25,7 +25,7 @@ shell(command)
 
 command = "java -jar " + str(snakemake.params.miraligner) + " -freq -sub " + str(snakemake.params.mir_mismatch) + \
     " -trim " + str(snakemake.params.mir_trim) + " -add " + str(snakemake.params.mir_add) + " -minl " + str(snakemake.params.mir_minl) + \
-    " -s " + str(snakemake.params.species) + " -i " + str(snakemake.input.unmapped).replace(".gz", "") + " -db " + snakemake.input.miraligner_db[0] + \
+    " -s " + str(snakemake.params.species) + " -i " + str(snakemake.input.unmapped).replace(".gz", "") + " -db " + snakemake.input.miraligner_db + \
     " -o " + str(snakemake.output.mirna).replace(".mirna", "") + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
