@@ -23,7 +23,7 @@ f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "STAR --runMode alignReads --runThreadN " + str(snakemake.params.nthreads) + " --genomeDir " + snakemake.input.rrna + \
+command = "STAR --runMode alignReads --runThreadN " + str(snakemake.params.nthreads) + " --genomeDir " + dirname(snakemake.input.rrna) + \
           " --readFilesCommand zcat" + \
           " --readFilesIn " + str(snakemake.input.clean) + \
           " --outFileNamePrefix " + dirname(snakemake.output.bam) + "/" + snakemake.wildcards.sample + ".rnar." + \
