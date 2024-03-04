@@ -38,7 +38,7 @@ f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "sed -i 's/^/@/' mapped.names >> " + log_filename + " 2>&1 " 
+command = "sed -i 's/^/@/' mapped.names >> " + log_filename + " 2>&1 "
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()

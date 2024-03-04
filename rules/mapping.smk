@@ -26,7 +26,7 @@ rule rrna_mapping:
 
 rule mirna_alignment:
     input:  unmapped = "results/mapped_seqs/{sample}.rnar.Unmapped.out.fastq.gz",
-            miraligner_db = config["organism_mirgene"]
+            miraligner_db = config["organism_mirgene"] #defined in bioroots utils
     output: mirna = "results/mapped_seqs/miraligner/{sample}.mirna",
             unmapped = "results/mapped_seqs/miraligner/{sample}.mirna.unmapped.fastq.gz"
     log:    "logs/mapping/{sample}/miraligner.log"
@@ -35,8 +35,8 @@ rule mirna_alignment:
             mir_trim = config["mir_trim"],
             mir_add = config["mir_add"],
             mir_minl = config["mir_minl"],
-            species = config["organism_code"],
-            miraligner = config["tool_path"]
+            species = config["organism_code"], #defined in bioroots utils
+            miraligner = config["tool_path"] #defined in bioroots utils
     conda:  "../wrappers/miraligner/env.yaml"
     script: "../wrappers/miraligner/script.py"
 
