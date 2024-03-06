@@ -17,10 +17,8 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-command = "cutadapt -u " + str(snakemake.params.left_trim) + \
-          " -u " + str(snakemake.params.right_trim) + \
-          " -o " + str(snakemake.output.trimmed) + " " + str(snakemake.input) + \
-          " | tee -a " + str(snakemake.output.text) + " >> " + log_filename + " 2>&1"
+command = "cutadapt -u 4 -u -4 -o " + str(snakemake.output.trimmed) + " " + str(snakemake.input) + \
+        " | tee -a " + str(snakemake.output.text) + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()

@@ -18,7 +18,7 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-command = "fastqc --outdir " + dirname(snakemake.output.trim) + " --format " + str(snakemake.params.formats) + \
+command = "fastqc --outdir " + dirname(snakemake.output.trim) + " --format fastq" + \
           " --threads " + str(snakemake.threads) + " " + dirname(snakemake.input.clean) + "/" + snakemake.wildcards.sample + ".*.fastq.gz  >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")

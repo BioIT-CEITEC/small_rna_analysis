@@ -27,7 +27,7 @@ if snakemake.params.kit == "nextflex_v4":
     command = "cutadapt -a " + str(snakemake.params.adapter) + \
               " --cores 0 --discard-untrimmed --quality-cutoff 20 -o " + str(snakemake.output.trimmed).replace(".gz", "") + \
               " --too-short-output " + str(snakemake.output.short) + \
-              " --minimum-length 16 " + str(snakemake.input) + " | tee -a " + str(snakemake.output.text) + " >> " + log_filename + " 2>&1"
+              " --minimum-length " + str(snakemake.params.disc_short) + " "  + str(snakemake.input) + " | tee -a " + str(snakemake.output.text) + " >> " + log_filename + " 2>&1"
     f = open(log_filename, "at")
     f.write("\n##\n## COMMAND: " + command + "\n")
     f.close()
@@ -35,12 +35,12 @@ if snakemake.params.kit == "nextflex_v4":
 
 else:
     command = "cutadapt -a " + str(snakemake.params.adapter) + \
-              " --times " + str(snakemake.params.remove_adap) + \
+              " --times 1 " + \
               " -e " + str(snakemake.params.error_rate) + \
               " -O " + str(snakemake.params.min_overlap) + \
               " -j " + str(snakemake.threads) + \
               " -m " + str(snakemake.params.disc_short) + \
-              " --max-n " + str(snakemake.params.max_n) + \
+              " --max-n 0" + \
               " -o " + str(snakemake.output.trimmed).replace(".gz", "") + str(flag) +\
               " --too-short-output " + snakemake.output.short + " " + str(snakemake.input) + " | tee -a " + str(snakemake.output.text) + " >> " + log_filename + " 2>&1"
     f = open(log_filename, "at")

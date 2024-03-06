@@ -18,7 +18,7 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-command = "gunzip -c " + str(snakemake.input) + " | fastx_collapser -Q" + str(snakemake.params.quality_base) + " | reformat.sh qfake=40 in=stdin.fa out=stdout.fq | gzip -c > " + snakemake.output.first_collapse 
+command = "gunzip -c " + str(snakemake.input) + " | fastx_collapser -Q33 | reformat.sh qfake=40 in=stdin.fa out=stdout.fq | gzip -c > " + str(snakemake.output.first_collapse)
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
@@ -26,7 +26,7 @@ shell(command)
 
 command = "cutadapt -j " + str(snakemake.threads) + \
           " -a " + str(snakemake.params.adapter_seq) + \
-          " --times " + str(snakemake.params.remove_adap) + \
+          " --times 1" + \
           " -e " + str(snakemake.params.error_rate) + \
           " -O " + str(snakemake.params.min_overlap) + \
           " -m " + str(snakemake.params.disc_short) + \

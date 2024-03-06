@@ -23,23 +23,23 @@ f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "STAR --runMode alignReads --runThreadN " + str(snakemake.params.nthreads) + " --genomeDir " + dirname(snakemake.input.rrna) + \
+command = "STAR --runMode alignReads --runThreadN 12 --genomeDir " + dirname(snakemake.input.rrna) + \
           " --readFilesCommand zcat" + \
           " --readFilesIn " + str(snakemake.input.clean) + \
           " --outFileNamePrefix " + dirname(snakemake.output.bam) + "/" + snakemake.wildcards.sample + ".rnar." + \
-          " --outFilterMultimapNmax " + str(snakemake.params.max_multimap) + \
-          " --outFilterMatchNmin " + str(snakemake.params.min_multimap) + \
-          " --outFilterMismatchNoverReadLmax " + str(snakemake.params.filter_mismatch) + \
-          " --outFilterMultimapScoreRange " + str(snakemake.params.score_range) + \
-          " --outFilterScoreMinOverLread " + str(snakemake.params.min_over) + \
-          " --outFilterMismatchNmax " + str(snakemake.params.filtermax_mismatch) + \
-          " --alignIntronMax " + str(snakemake.params.intron_max) + \
-          " --alignIntronMin " + str(snakemake.params.intron_min) + \
+          " --outFilterMultimapNmax 5000" + \
+          " --outFilterMatchNmin 15" + \
+          " --outFilterMismatchNoverReadLmax 0.05" + \
+          " --outFilterMultimapScoreRange 0" + \
+          " --outFilterScoreMinOverLread 0" + \
+          " --outFilterMismatchNmax 999" + \
+          " --alignIntronMax 1"  + \
+          " --alignIntronMin 2" + \
           " --outSAMheaderHD @HD VN:1.4 SO:coordinate" + \
           " --outSAMunmapped Within --outReadsUnmapped Fastx --outFilterType Normal " + \
           " --outSAMattributes All --twopassMode None " + \
-          " --seedSearchStartLmax " + str(snakemake.params.seed_search) + \
-          " --winAnchorMultimapNmax " + str(snakemake.params.anchor_multimap) + \
+          " --seedSearchStartLmax 10" + \
+          " --winAnchorMultimapNmax 1000" + \
           " --outMultimapperOrder Random --outSAMtype BAM Unsorted " + \
           " --alignEndsType EndToEnd  >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")

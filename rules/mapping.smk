@@ -1,6 +1,6 @@
 rule rrna_mapping:
     input:  clean = "results/trimmed_seqs/{sample}.clean_collapsed.fastq.gz",
-            rrna = config["organism_rrna_star"]
+            rrna = config["organism_rrna_star"] #defined in bioroots utils
     output: bam = "results/mapped_seqs/{sample}.rnar.Aligned.out.bam",
             log_final = "results/mapped_seqs/{sample}.rnar.Log.final.out",
             log = "results/mapped_seqs/{sample}.rnar.Log.out",
@@ -10,17 +10,6 @@ rule rrna_mapping:
             mapping_stats = "results/mapped_seqs/rrna_stats/{sample}_rrna_mapping.txt"
     log:    "logs/mapping/{sample}/rrna_mapping.log"
     threads: 30
-    params: nthreads = config["nthreads"],
-            max_multimap = config["max_multimap"],
-            min_multimap = config["min_multimap"],
-            filter_mismatch = config["filter_mismatch"],
-            score_range = config["score_range"],
-            min_over = config["min_over"],
-            filtermax_mismatch = config["filtermax_mismatch"],
-            intron_max = config["intron_max"],
-            intron_min = config["intron_min"],
-            seed_search = config["seed_search"],
-            anchor_multimap = config["anchor_multimap"]
     conda:  "../wrappers/rrna_mapping/env.yaml"
     script: "../wrappers/rrna_mapping/script.py"
 
