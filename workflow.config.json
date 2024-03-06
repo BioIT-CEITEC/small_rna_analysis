@@ -1,129 +1,122 @@
 {
   "workflow_description": {
-    "name": "raw_fastq_qc",
+    "name": "small_rna_analysis",
     "version": 1.0,
-    "label": "Raw fastq QC",
-    "type": "raw_fastq_qc",
+    "label": "Small RNA Analysis",
+    "type": "small_rna_analysis",
     "inputs": "raw_fastq/{sample}*fastq.gz",
     "outputs": [
-      "qc_reports/*",
+      "results/*",
       "logs/*"
-    ],
-    "report_index": "qc_reports/raw_fastq_multiqc.html",
-    "reports": [
-      "qc_reports/raw_fastq_multiqc.html"
     ]
   },
   "general_params": [
-    "entity_name",
     "sample_name"
   ],
-  "requested_params": [
-    "is_paired"
-  ],
   "gui_params": {
+    "primary": {
+      "reference": {
+        "label": "Genomic Reference",
+        "type": "enum",
+        "info": "Reference organism to annotate the miRNAs",
+        "default": ##INCLUDE:reference_info/default_reference.json##,
+        "list": ##INCLUDE:reference_info/reference2.json##
+      },
+      "kit": {
+        "label": "Selected kit",
+        "type": "enum",
+        "info": "Kit used for library preparation",
+        "default": "",
+        "list": {
+          "nextflex_v3": "NEXTFLEX Small RNA Sequencing kit V3",
+          "nextflex_v4": "NEXTFLEX Small RNA Sequencing kit V4",
+          "qiaseq": "QIAseq miRNA Library Kit",
+          "truseq": "TruSeq small RNA library prep kit"
+        }
+      }
+    },
     "detailed": {
-      "check_adaptors": {
-        "label": "Check adaptors by Minion",
-        "type": "bool",
-        "default": false
-      },
-      "min_adapter_matches": {
-        "label": "Min length of adaptor match (Minion)",
-        "type": "int",
-        "default": 12,
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "check_adaptors": true
-            }
-          }
-        }
-      },
-      "biobloom": {
-        "label": "Biobloom tools",
-        "type": "bool",
-        "default": false
-      },
-      "biobloom_ref": {
-        "label": "Biobloom reference species",
+      "error_rate": {
+        "label": "Error rate",
         "type": "string",
-        "default": "H.sapiens;M.musculus;A.thaliana;D.melanogaster;C.elegans;S.cerevisiae",
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "biobloom": true
-            }
-          }
-        }
+        "info": "Error tolerance set in Cutadapt (error in match/length of the matched part)",
+        "default": "0.1"
       },
-      "species_detector": {
-        "label": "Species detector",
-        "type": "bool",
-        "default": true
-      },
-      "max_reads_for_sp_detector": {
-        "label": "Number of reads to use for species detection",
-        "type": "int",
-        "default": 1000,
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "species_detector": true
-            }
-          }
-        }
-      },
-      "evalue_for_sp_detector": {
-        "label": "E-value cutof for species detection",
+      "min_overlap": {
+        "label": "Minimum overlap",
         "type": "string",
-        "default": "1e-15",
+        "info": "Minimum bases matched to the adapter (reduces falsely trimmed bases)",
+        "default": "5"
+      },
+      "mir_mismatch": {
+        "label": "Allowed mismatches Miraligner",
+        "type": "string",
+        "info": "Number of mismatches allowed (0 or 1 can be set)",
+        "default": "1"
+      },
+      "mir_trim": {
+        "label": "Allowed trimming Miraligner",
+        "type": "string",
+        "info": "Number of nucleotides allowed for trimming (maximum 3)",
+        "default": "3"
+      },
+      "mir_add": {
+        "label": "Allowed addition Miraligner",
+        "type": "string",
+        "info": "Number of nucleotides allowed for addition (maximum 3)",
+        "default": "3"
+      },
+      "mir_minl": {
+        "label": "Minimum length Miraligner",
+        "type": "string",
+        "info": "Minimum sequence length considered for miRNA annotation",
+        "default": "16"
+      },
+      "adapter_seq": {
+        "label": "Adapter sequence",
+        "type": "string",
+        "info": "Sequence included in library prep to be trimmed from the reads",
+        "default": "",
         "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "species_detector": true
+          "value": {
+            "kit": {
+              "nextflex_v3": "TGGAATTCTCGGGTGCCAAGG",
+              "nextflex_v4": "TGGAATTCTCGGGTGCCAAGG",
+              "qiaseq": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA",
+              "truseq": "TGGAATTCTCGGGTGCCAAGG"
             }
           }
         }
       },
-      "filesender": {
-        "label": "FileSender",
-        "type": "bool",
-        "default": false
-      },
-      "recipient": {
-        "label": "Send results to (comma separated list of emails):",
-        "type": "string",
-        "default": "cfg@ceitec.muni.cz",
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "filesender": true
+        "disc_short": {
+          "label": "Minimum length",
+          "type": "string",
+          "info": "Discards processed reads shorter than the set value",
+          "default": "",
+          "conditions": {
+            "value": {
+              "kit": {
+                "nextflex_v3": "22",
+                "nextflex_v4": "16",
+                "qiaseq": "15",
+                "truseq": "14"
             }
           }
         }
-      },
-      "message": {
-        "label": "Message for recipient:",
-        "type": "string",
-        "default": "Dear customer, we are sending you the prepared fastq files from your sequencing. You have 29 days to download data. Thank you for using our facility. Best regards, Core facility of Bioinformatics and Genomics team.",
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "filesender": true
-            }
+      }
+    },
+    "adapter_2": {
+      "label": "Second adapter",
+      "type": "string",
+      "info": "Second adapter sequence (Only for QIAseq kit)",
+      "default": "qiaseq",
+      "conditions": {
+        "value": {
+          "kit": {
+            "nextflex_v3": "",
+            "nextflex_v4": "",
+            "qiaseq": "AACTGTAGGCACCATCAAT",
+            "truseq": ""
           }
         }
       }
