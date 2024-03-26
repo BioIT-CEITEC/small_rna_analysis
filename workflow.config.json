@@ -88,18 +88,18 @@
           }
         }
       },
-        "disc_short": {
-          "label": "Minimum length",
-          "type": "string",
-          "info": "Discards processed reads shorter than the set value",
-          "default": "",
-          "conditions": {
-            "value": {
-              "kit": {
-                "nextflex_v3": "22",
-                "nextflex_v4": "16",
-                "qiaseq": "15",
-                "truseq": "14"
+      "disc_short": {
+        "label": "Minimum length",
+        "type": "string",
+        "info": "Discards processed reads shorter than the set value",
+        "default": "",
+        "conditions": {
+          "value": {
+            "kit": {
+              "nextflex_v3": "22",
+               "nextflex_v4": "16",
+               "qiaseq": "15",
+               "truseq": "14"
             }
           }
         }
