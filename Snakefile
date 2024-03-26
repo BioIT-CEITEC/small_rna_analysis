@@ -19,7 +19,7 @@ module BR:
 
 use rule * from BR as other_*
 
-##### Config processing #####
+#### Config processing #####
 
 sample_tab = BR.load_sample()
 
