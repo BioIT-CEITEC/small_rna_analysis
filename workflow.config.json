@@ -103,23 +103,23 @@
             }
           }
         }
-      }
-    },
-    "adapter_2": {
-      "label": "Second adapter",
-      "type": "string",
-      "info": "Second adapter sequence (Only for QIAseq kit)",
-      "default": "qiaseq",
-      "conditions": {
-        "value": {
-          "kit": {
-            "nextflex_v3": "",
-            "nextflex_v4": "",
-            "qiaseq": "AACTGTAGGCACCATCAAT",
-            "truseq": ""
+      },
+      "adapter_2": {
+        "label": "Second adapter",
+        "type": "string",
+        "info": "Second adapter sequence (Only for QIAseq kit)",
+        "default": "qiaseq",
+        "conditions": {
+          "value": {
+            "kit": {
+              "nextflex_v3": "",
+              "nextflex_v4": "",
+              "qiaseq": "AACTGTAGGCACCATCAAT",
+              "truseq": ""
           }
         }
       }
     }
   }
+}
 }
