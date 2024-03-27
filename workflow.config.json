@@ -11,7 +11,8 @@
     ]
   },
   "general_params": [
-    "sample_name"
+    "sample_name",
+    "entity_name"
   ],
   "gui_params": {
     "primary": {
