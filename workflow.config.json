@@ -73,22 +73,6 @@
         "info": "Minimum sequence length considered for miRNA annotation",
         "default": "16"
       },
-      "adapter_seq": {
-        "label": "Adapter sequence",
-        "type": "string",
-        "info": "Sequence included in library prep to be trimmed from the reads",
-        "default": "nextflex_v4",
-        "conditions": {
-          "value": {
-            "kit": {
-              "nextflex_v3": "TGGAATTCTCGGGTGCCAAGG",
-              "nextflex_v4": "TGGAATTCTCGGGTGCCAAGG",
-              "qiaseq": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA",
-              "truseq": "TGGAATTCTCGGGTGCCAAGG"
-            }
-          }
-        }
-      },
       "disc_short": {
         "label": "Minimum length",
         "type": "string",
@@ -101,22 +85,6 @@
                "nextflex_v4": "16",
                "qiaseq": "15",
                "truseq": "14"
-            }
-          }
-        }
-      },
-      "adapter_2": {
-        "label": "Second adapter",
-        "type": "string",
-        "info": "Second adapter sequence (Only for QIAseq kit)",
-        "default": "qiaseq",
-        "conditions": {
-          "value": {
-            "kit": {
-              "nextflex_v3": "",
-              "nextflex_v4": "",
-              "qiaseq": "AACTGTAGGCACCATCAAT",
-              "truseq": ""
             }
           }
         }
