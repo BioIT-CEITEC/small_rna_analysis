@@ -29,6 +29,17 @@ tools = BR.load_tooldir()
 
 config["tool_path"] = config["tooldir"] + "/miraligner/miraligner_3.5/miraligner.jar"
 
+##### Adapter processing #####
+
+if config["kit"] != "qiaseq":
+    config["adapter_seq"] = "TGGAATTCTCGGGTGCCAAGG"
+    config["adapter_2"] = ""
+else:
+    config["adapter_seq"] = "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
+    config["adapter_2"] = "AACTGTAGGCACCATCAAT"
+
+
+
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name)
 
