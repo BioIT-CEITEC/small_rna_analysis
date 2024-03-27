@@ -27,7 +27,7 @@
         "label": "Selected kit",
         "type": "enum",
         "info": "Kit used for library preparation",
-        "default": "",
+        "default": "nextflex_v4",
         "list": {
           "nextflex_v3": "NEXTFLEX Small RNA Sequencing kit V3",
           "nextflex_v4": "NEXTFLEX Small RNA Sequencing kit V4",
@@ -77,7 +77,7 @@
         "label": "Adapter sequence",
         "type": "string",
         "info": "Sequence included in library prep to be trimmed from the reads",
-        "default": "",
+        "default": "nextflex_v4",
         "conditions": {
           "value": {
             "kit": {
@@ -93,7 +93,7 @@
         "label": "Minimum length",
         "type": "string",
         "info": "Discards processed reads shorter than the set value",
-        "default": "",
+        "default": "nextflex_v4",
         "conditions": {
           "value": {
             "kit": {
