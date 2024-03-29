@@ -24,25 +24,25 @@ f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "mkdir -p results/sequences_summary/zip_folder >> " + log_filename + " 2>&1"
+command = "mkdir -p " + dirname(snakemake.output.summary) + snakemake.wildcards.sample + "_zip_folder >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "unzip -o " + dirname(snakemake.input.trimmed) + "/\"*fastqc.zip\" -d results/sequences_summary/zip_folder"
+command = "unzip -o " + dirname(snakemake.input.trimmed) + "/\"*fastqc.zip\"" + " -d " + dirname(snakemake.output.summary) + snakemake.wildcards.sample + "_zip_folder"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "grep \"Total Sequences\" results/sequences_summary/zip_folder/" + snakemake.wildcards.sample + ".*/*.txt >> " + snakemake.output.summary + " 2>> " + log_filename
+command = "grep \"Total Sequences\" " + dirname(snakemake.output.summary) + snakemake.wildcards.sample + "_zip_folder/" + snakemake.wildcards.sample + ".*/*.txt >> " + snakemake.output.summary + " 2>> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "rm -r results/sequences_summary/zip_folder >> " + log_filename + " 2>&1"
+command = "rm -r " + dirname(snakemake.output.summary) + snakemake.wildcards.sample + "_zip_folder >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()

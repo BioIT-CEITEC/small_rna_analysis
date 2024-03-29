@@ -41,7 +41,8 @@ command = "STAR --runMode alignReads --runThreadN 12 --genomeDir " + dirname(sna
           " --seedSearchStartLmax 10" + \
           " --winAnchorMultimapNmax 1000" + \
           " --outMultimapperOrder Random --outSAMtype BAM Unsorted " + \
-          " --alignEndsType EndToEnd  >> " + log_filename + " 2>&1"
+          " --alignEndsType EndToEnd  " + \
+          " --outTmpDir " + snakemake.params.tmpd + "/" + snakemake.wildcards.sample + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()

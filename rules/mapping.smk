@@ -10,12 +10,13 @@ rule rrna_mapping:
             mapping_stats = "results/mapped_seqs/rrna_stats/{sample}_rrna_mapping.txt"
     log:    "logs/mapping/{sample}/rrna_mapping.log"
     threads: 30
+    params: tmpd = GLOBAL_TMPD_PATH
     conda:  "../wrappers/rrna_mapping/env.yaml"
     script: "../wrappers/rrna_mapping/script.py"
 
 rule mirna_alignment:
     input:  unmapped = "results/mapped_seqs/{sample}.rnar.Unmapped.out.fastq.gz",
-            miraligner_db = config["organism_mirgene"] #defined in bioroots utils
+            miraligner_db = config["organism_mirbase"] #defined in bioroots utils
     output: mirna = "results/mapped_seqs/miraligner/{sample}.mirna",
             unmapped = "results/mapped_seqs/miraligner/{sample}.mirna.unmapped.fastq.gz"
     log:    "logs/mapping/{sample}/miraligner.log"
