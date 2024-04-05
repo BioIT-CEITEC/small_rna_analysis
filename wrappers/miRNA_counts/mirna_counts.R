@@ -40,7 +40,7 @@ counts_all <- function(args) {
 
   for (col_name in colnames(mirna_mirbase_canonical)[-1]) {
     sample_data <- mirna_mirbase_canonical %>% select(mirna, !!sym(col_name))
-    write.table(sample_data, paste0("../qc_reports/", col_name, "/mirbase_canonical/", paste0(col_name, ".mirbase_canonical.tsv")), row.names = FALSE)
+    write.table(sample_data, paste0("../../qc_reports/", col_name, "/mirbase_canonical/", paste0(col_name, ".mirbase_canonical.tsv")), row.names = FALSE)
   }
 
   mirna_mirbase_isomiRs <- read.delim("mirna.mirbase_isomiRs.tsv", sep = "\t")
