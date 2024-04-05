@@ -18,7 +18,7 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-working_folder = os.path.join(os.getcwd(), "results/mapped_seqs/miraligner")
+working_folder = os.path.join(os.getcwd(), "mapped/miraligner")
 
 command = "Rscript "+os.path.abspath(os.path.dirname(__file__))+"/mirna_counts.R "+\
             working_folder + " >> " + log_filename + " 2>&1 "

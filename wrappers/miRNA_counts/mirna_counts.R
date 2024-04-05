@@ -13,8 +13,8 @@ counts_all <- function(args) {
   names <- gsub(".mirna", "", basename(fn_list))
 
   for (name in names) {
-    folder_path_canonical <- file.path("../../qc_reports", name, "mirbase_canonical")
-    folder_path_isomiRs <- file.path("../../qc_reports", name, "mirbase_isomiRs")
+    folder_path_canonical <- file.path("../qc_reports", name, "mirbase_canonical")
+    folder_path_isomiRs <- file.path("../qc_reports", name, "mirbase_isomiRs")
     dir.create(folder_path_canonical, recursive = TRUE, showWarnings = FALSE)
     dir.create(folder_path_isomiRs, recursive = TRUE, showWarnings = FALSE)
   }
@@ -40,7 +40,7 @@ counts_all <- function(args) {
 
   for (col_name in colnames(mirna_mirbase_canonical)[-1]) {
     sample_data <- mirna_mirbase_canonical %>% select(mirna, !!sym(col_name))
-    write.table(sample_data, paste0("../../qc_reports/", col_name, "/mirbase_canonical/", paste0(col_name, ".mirbase_canonical.tsv")), row.names = FALSE)
+    write.table(sample_data, paste0("../qc_reports/", col_name, "/mirbase_canonical/", paste0(col_name, ".mirbase_canonical.tsv")), row.names = FALSE)
   }
 
   mirna_mirbase_isomiRs <- read.delim("mirna.mirbase_isomiRs.tsv", sep = "\t")
@@ -49,7 +49,7 @@ counts_all <- function(args) {
 
   for (col_name in colnames(mirna_mirbase_isomiRs)[-1]) {
     sample_data <- mirna_mirbase_isomiRs %>% select(mirna, !!sym(col_name))
-    write.table(sample_data, paste0("../../qc_reports/", col_name, "/mirbase_isomiRs/", paste0(col_name, ".mirbase_isomiRs.tsv")), row.names = FALSE)
+    write.table(sample_data, paste0("../qc_reports/", col_name, "/mirbase_isomiRs/", paste0(col_name, ".mirbase_isomiRs.tsv")), row.names = FALSE)
   }
 
   #unlink(c(file.path(input_dir, "mirna.mirbase_canonical.tsv"), file.path(input_dir, "mirna.mirbase_isomiRs.tsv")))
