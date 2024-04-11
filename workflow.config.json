@@ -7,7 +7,9 @@
     "inputs": "raw_fastq/{sample}*fastq.gz",
     "outputs": [
       "qc_reports/*",
-      "logs/*"
+      "logs/*",
+      "sequences_summary/*",
+      "trimmed_seqs/{sample}*clean_collapsed.fastq.gz"
     ],
     "report_index": "qc_reports/multiqc/clean_trim/clean_trim_multiqc.html",
     "reports":[
