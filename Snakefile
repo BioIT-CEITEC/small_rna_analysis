@@ -47,7 +47,7 @@ wildcard_constraints:
 rule all:
     input: expand("qc_reports/{sample}.clean_collapsed_fastqc.html", sample = sample_tab.sample_name),
            expand("sequences_summary/{sample}.sequences_summary.txt", sample = sample_tab.sample_name),
-           "qc_reports/multiqc/clean_trim/clean_trim_multiqc.html",
+           "qc_reports/multiqc/trimmed/trimmed_multiqc.html",
            expand("mapped/miraligner/{sample}.mirna", sample = sample_tab.sample_name),
            expand("mapped/rrna_stats/{sample}_rrna_mapping.txt", sample = sample_tab.sample_name),
            expand("qc_reports/{sample}/mirbase_canonical/{sample}.mirbase_canonical.tsv", sample = sample_tab.sample_name),

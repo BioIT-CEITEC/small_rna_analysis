@@ -23,7 +23,7 @@ f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
 
-command = "multiqc -f -n "  + snakemake.output.cleaned_collapsed +  " " + snakemake.input.clean + " >> " + log_filename + " 2>&1"
+command = "multiqc -f -n "  + snakemake.output.cleaned_collapsed +  " qc_reports/ " + snakemake.params.clean + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
