@@ -82,7 +82,7 @@ rule merge_all_qc_next:
              cleaned_collapsed = "qc_reports/multiqc/clean_collapsed/clean_collapsed_multiqc.html"
     log:     "logs/merge_qc/first_merge_qc_reports.log"
     threads: 10
-    params:  clean = "--ignore \"*short*\" --ignore \"*first_trim*\" --ignore \"*second_trim*\" --ignore \"*untrim*\""
+    params:  clean = "--ignore \"*short*\" --ignore \"*first_trim*\" --ignore \"*second_trim*\" --ignore \"*untrim*\"",
              trimmed = "--ignore \"*short*\" --ignore \"*untrim*\" --ignore \"*collapsed*\"",
              others = "--ignore \"*collapsed*\" --ignore \"*first_trim*\" --ignore \"*second_trim*\"",
     conda:   "../wrappers/merge_qc/env.yaml"
