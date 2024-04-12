@@ -76,12 +76,13 @@ def multiqc_input(wildcards):
 
 rule merge_all_qc_next:
     input:   unpack(multiqc_input)
-    output:  clean = "qc_reports/multiqc/clean_trim/clean_trim_multiqc.html",
+    output:  trimmed = "qc_reports/multiqc/trimmed/trimmed_multiqc.html",
              cutadapt = "qc_reports/multiqc/cutadapt/cutadapt_multiqc.html",
-             untrim_short = "qc_reports/multiqc/untrim_short/untrim_short_multiqc.html"
+             untrim_short = "qc_reports/multiqc/untrim_short/untrim_short_multiqc.html",
+             cleaned_collapsed = "qc_reports/multiqc/clean_collapsed/clean_collapsed_multiqc.html"
     log:     "logs/merge_qc/first_merge_qc_reports.log"
     threads: 10
-    params:  clean = "--ignore \"*short*\" --ignore \"*untrim*\"",
+    params:  trimmed = "--ignore \"*short*\" --ignore \"*untrim*\" --ignore \"*collapsed*\",
              others = "--ignore \"*collapsed*\" --ignore \"*first_trim*\" --ignore \"*second_trim*\"",
     conda:   "../wrappers/merge_qc/env.yaml"
     script:  "../wrappers/merge_qc/script.py"
