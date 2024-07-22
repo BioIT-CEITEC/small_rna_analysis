@@ -26,9 +26,9 @@ if config["kit"] == "truseq" or config["kit"] == "nextflex_v4":
 if config["kit"] == "nextflex_v3":
     rule nextflex_adapter_removal_collapsed:
         input:   "trimmed_seqs/{sample}.first_trim.lowQclean.fastq.gz"
-        output: trimmed = "trimmed_seqs/{sample}.second_trim.fastq.gz",
-                text = "trimmed_seqs/cutadapt/{sample}.second_trim_cutadapt.txt",
-                cleaned = "trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
+        output:  trimmed = "trimmed_seqs/{sample}.second_trim.fastq.gz",
+                 text = "trimmed_seqs/cutadapt/{sample}.second_trim_cutadapt.txt",
+                 cleaned = "trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
         log:     "logs/second_trim/{sample}/second_trim.log"
         threads: 10
         conda:   "../wrappers/nextflex_adapter_removal/env.yaml"
@@ -37,11 +37,11 @@ if config["kit"] == "nextflex_v3":
 if config["kit"] == "qiaseq":
     rule qiaseq_adapter_removal_collapsed:
         input:   input_second_adapter = "trimmed_seqs/{sample}.first_trim.lowQclean.fastq.gz"
-        output:  first_collapse = "trimmed_seqs/{sample}.collapsed.fastq.gz",
-                short = "trimmed_seqs/{sample}.second_short.fastq.gz",
-                untrimmed = "trimmed_seqs/{sample}.second_untrim.fastq.gz",
-                text = "trimmed_seqs/cutadapt/{sample}.second_trim_cutadapt.txt",
-                second_collapse = "trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
+        output:  trimmed = "trimmed_seqs/{sample}.second_trim.fastq.gz",
+                 short = "trimmed_seqs/{sample}.second_short.fastq.gz",
+                 untrimmed = "trimmed_seqs/{sample}.second_untrim.fastq.gz",
+                 text = "trimmed_seqs/cutadapt/{sample}.second_trim_cutadapt.txt",
+                 second_collapse = "trimmed_seqs/{sample}.clean_collapsed.fastq.gz"
         log:     "logs/second_trim/{sample}/second_adapter_removal.log"
         threads: 10
         params: adapter_seq = config["adapter_2"],
@@ -55,7 +55,7 @@ rule all_quality_control:
     input:  clean = "trimmed_seqs/{sample}.clean_collapsed.fastq.gz",
     output: trim = "qc_reports/{sample}.first_trim.lowQclean_fastqc.html",
             clean = "qc_reports/{sample}.clean_collapsed_fastqc.html",
-            second = "qc_reports/{sample}.second_trim_fastqc.html" if config["kit"] == "nextflex_v3" else "qc_reports/{sample}.first_short_fastqc.html",
+            second = "qc_reports/{sample}.second_trim_fastqc.html" if config["kit"] == "nextflex_v3" or config["kit"] == "qiaseq" else "qc_reports/{sample}.first_short_fastqc.html",
     log:     "logs/final_qc/{sample}/adapt1_trim_qc.log"
     threads: 10
     conda:   "../wrappers/quality_control/env.yaml"

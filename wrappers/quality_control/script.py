@@ -24,4 +24,3 @@ f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
 shell(command)
-

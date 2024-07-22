@@ -18,11 +18,11 @@ f = open(log_filename, "at")
 f.write("\n##\n## CONDA: " + version + "\n")
 f.close()
 
-command = "gunzip -c " + str(snakemake.input) + " | fastx_collapser -Q33 | reformat.sh qfake=40 in=stdin.fa out=stdout.fq | gzip -c > " + str(snakemake.output.first_collapse)
-f = open(log_filename, "at")
-f.write("\n##\n## COMMAND: " + command + "\n")
-f.close()
-shell(command)
+# command = "gunzip -c " + str(snakemake.input) + " | fastx_collapser -Q33 | reformat.sh qfake=40 in=stdin.fa out=stdout.fq | gzip -c > " + str(snakemake.output.first_collapse)
+# f = open(log_filename, "at")
+# f.write("\n##\n## COMMAND: " + command + "\n")
+# f.close()
+# shell(command)
 
 command = "cutadapt -j " + str(snakemake.threads) + \
           " -a " + str(snakemake.params.adapter_seq) + \
@@ -30,10 +30,10 @@ command = "cutadapt -j " + str(snakemake.threads) + \
           " -e " + str(snakemake.params.error_rate) + \
           " -O " + str(snakemake.params.min_overlap) + \
           " -m " + str(snakemake.params.disc_short) + \
-          " -o " + snakemake.output.clean_collapsed + \
+          " -o " + snakemake.output.trimmed + \
           " --too-short-output " + snakemake.output.short + \
           " --untrimmed-output " + snakemake.output.untrimmed + " \
-          " + str(snakemake.output.first_collapse) + " | tee -a " + snakemake.output.text + " >> " + log_filename + " 2>&1"
+          " + str(snakemake.input) + " | tee -a " + snakemake.output.text + " >> " + log_filename + " 2>&1"
 f = open(log_filename, "at")
 f.write("\n##\n## COMMAND: " + command + "\n")
 f.close()
