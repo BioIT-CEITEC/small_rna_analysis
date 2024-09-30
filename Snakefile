@@ -33,10 +33,10 @@ config["tool_path"] = config["tooldir"] + "/miraligner/miraligner_3.5/miraligner
 
 if config["kit"] != "qiaseq":
     config["adapter_seq"] = "TGGAATTCTCGGGTGCCAAGG"
-    config["adapter_2"] = ""
+    config["adapter_2"] = "AACTGTAGGCACCATCAAT"
 else:
     config["adapter_seq"] = "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
-    config["adapter_2"] = "AACTGTAGGCACCATCAAT"
+    config["adapter_2"] = ""
 
 
 
