@@ -35,8 +35,8 @@ if config["kit"] != "qiaseq":
     config["adapter_seq"] = "TGGAATTCTCGGGTGCCAAGG"
     config["adapter_2"] = ""
 else:
-    config["adapter_seq"] = "AACTGTAGGCACCATCAAT"
-    config["adapter_2"] = "GTTCAGAGTTCTACAGTCCGACGATC"
+    config["adapter_seq"] = "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
+    config["adapter_2"] = "AACTGTAGGCACCATCAAT"
 
 
 
