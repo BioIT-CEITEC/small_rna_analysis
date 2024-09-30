@@ -25,7 +25,7 @@ f.close()
 # shell(command)
 
 command = "cutadapt -j " + str(snakemake.threads) + \
-          " -g " + str(snakemake.params.adapter_seq) + \
+          " -a " + str(snakemake.params.adapter_seq) + \
           " --times 1" + \
           " -e " + str(snakemake.params.error_rate) + \
           " -O " + str(snakemake.params.min_overlap) + \
