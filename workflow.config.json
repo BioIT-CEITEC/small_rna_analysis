@@ -11,7 +11,7 @@
       "sequences_summary/*",
       "trimmed_seqs/{sample}*clean_collapsed.fastq.gz"
     ],
-    "report_index": "qc_reports/multiqc/trimmed/trimed_multiqc.html",
+    "report_index": "qc_reports/multiqc/trimmed/trimmed_multiqc.html",
     "reports":[
       "qc_reports/multiqc/trimmed/trimmed_multiqc.html"
     ]
