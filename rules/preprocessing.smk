@@ -1,5 +1,5 @@
 rule first_adapter_removal_next:
-    input:   "raw_fastq/{sample}.fastq.gz",
+    input:   "raw_fastq/{sample}_R1.fastq.gz",
     output: trimmed = "trimmed_seqs/{sample}.first_trim.fastq.gz",
             short = "trimmed_seqs/{sample}.first_short.fastq.gz",
             text = "trimmed_seqs/cutadapt/{sample}.first_trim_cutadapt.txt",
