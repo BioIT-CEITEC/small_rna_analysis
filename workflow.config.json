@@ -22,13 +22,23 @@
   ],
   "gui_params": {
     "primary": {
-      "reference": {
-        "label": "Genomic Reference",
-        "type": "enum",
-        "info": "Reference organism to annotate the miRNAs",
-        "default": ##INCLUDE:reference_info/default_reference.json##,
-        "list": ##INCLUDE:reference_info/reference2.json##
-      },
+      "organism": {
+          "label": "Organism",
+          "type": "enum",
+          "dynamicEnumName": "organism"
+        },
+      "assembly": {
+          "label": "Assembly",
+          "type": "enum",
+          "dynamicEnumName": "assembly",
+          "filters": {
+            "group": {
+              "param": "organism",
+              "type": "value",
+              "showGroupLabel": false
+            }
+          }
+        },
       "kit": {
         "label": "Selected kit",
         "type": "enum",
@@ -94,6 +104,34 @@
             }
           }
         }
+      },
+      "featureCount": {
+        "type": "constant",
+        "default": false
+      },
+      "count_over": {
+        "type": "constant",
+        "default": "exon"
+      },
+      "RSEM": {
+        "type": "constant",
+        "default": false
+      },
+      "salmon_align": {
+        "type": "constant",
+        "default": false
+      },
+      "salmon_map": {
+        "type": "constant",
+        "default": false
+      },
+      "kallisto": {
+        "type": "constant",
+        "default": false
+      },
+      "release": {
+        "type": "constant",
+        "default": "UNK_UNK"
       }
     }
   }
