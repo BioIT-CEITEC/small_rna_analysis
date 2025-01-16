@@ -109,6 +109,10 @@
         "type": "constant",
         "default": false
       },
+      "HTSeqCount": {
+        "type": "constant",
+        "default": false
+      },
       "count_over": {
         "type": "constant",
         "default": "exon"
