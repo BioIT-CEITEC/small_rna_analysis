@@ -1,0 +1,100 @@
+{
+  "workflow_description": {
+    "name": "small_rna_analysis",
+    "version": 1.0,
+    "label": "Small RNA Analysis",
+    "type": "small_rna_analysis",
+    "inputs": "raw_fastq/{sample}*fastq.gz",
+    "outputs": [
+      "qc_reports/*",
+      "logs/*",
+      "sequences_summary/*",
+      "trimmed_seqs/{sample}*clean_collapsed.fastq.gz"
+    ],
+    "report_index": "qc_reports/multiqc/trimmed/trimmed_multiqc.html",
+    "reports":[
+      "qc_reports/multiqc/trimmed/trimmed_multiqc.html"
+    ]
+  },
+  "general_params": [
+    "sample_name",
+    "entity_name"
+  ],
+  "gui_params": {
+    "primary": {
+      "reference": {
+        "label": "Genomic Reference",
+        "type": "enum",
+        "info": "Reference organism to annotate the miRNAs",
+        "default": ##INCLUDE:reference_info/default_reference.json##,
+        "list": ##INCLUDE:reference_info/reference2.json##
+      },
+      "kit": {
+        "label": "Selected kit",
+        "type": "enum",
+        "info": "Kit used for library preparation",
+        "default": "nextflex_v4",
+        "list": {
+          "nextflex_v3": "NEXTFLEX Small RNA Sequencing kit V3",
+          "nextflex_v4": "NEXTFLEX Small RNA Sequencing kit V4",
+          "qiaseq": "QIAseq miRNA Library Kit",
+          "truseq": "TruSeq small RNA library prep kit"
+        }
+      }
+    },
+    "detailed": {
+      "error_rate": {
+        "label": "Error rate",
+        "type": "string",
+        "info": "Error tolerance set in Cutadapt (error in match/length of the matched part)",
+        "default": "0.1"
+      },
+      "min_overlap": {
+        "label": "Minimum overlap",
+        "type": "string",
+        "info": "Minimum bases matched to the adapter (reduces falsely trimmed bases)",
+        "default": "5"
+      },
+      "mir_mismatch": {
+        "label": "Allowed mismatches Miraligner",
+        "type": "string",
+        "info": "Number of mismatches allowed (0 or 1 can be set)",
+        "default": "1"
+      },
+      "mir_trim": {
+        "label": "Allowed trimming Miraligner",
+        "type": "string",
+        "info": "Number of nucleotides allowed for trimming (maximum 3)",
+        "default": "3"
+      },
+      "mir_add": {
+        "label": "Allowed addition Miraligner",
+        "type": "string",
+        "info": "Number of nucleotides allowed for addition (maximum 3)",
+        "default": "3"
+      },
+      "mir_minl": {
+        "label": "Minimum length Miraligner",
+        "type": "string",
+        "info": "Minimum sequence length considered for miRNA annotation",
+        "default": "16"
+      },
+      "disc_short": {
+        "label": "Minimum length",
+        "type": "string",
+        "info": "Discards processed reads shorter than the set value",
+        "default": "nextflex_v4",
+        "conditions": {
+          "value": {
+            "kit": {
+              "nextflex_v3": "22",
+               "nextflex_v4": "16",
+               "qiaseq": "15",
+               "truseq": "14"
+            }
+          }
+        }
+      }
+    }
+  }
+}
