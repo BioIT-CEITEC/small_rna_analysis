@@ -39,6 +39,18 @@
             }
           }
         },
+      "release": {
+          "label": "Release",
+          "type": "enum",
+          "dynamicEnumName": "release",
+          "filters": {
+            "group": {
+              "param": "assembly",
+              "type": "value",
+              "showGroupLabel": false
+            }
+          }
+        },
       "kit": {
         "label": "Selected kit",
         "type": "enum",
@@ -132,10 +144,6 @@
       "kallisto": {
         "type": "constant",
         "default": false
-      },
-      "release": {
-        "type": "constant",
-        "default": "UNK_UNK"
       }
     }
   }

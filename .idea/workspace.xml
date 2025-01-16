@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ca3ceeb-eef0-47eb-9f38-7beca4873975" name="Changes" comment="rm" />
+    <list default="true" id="bbf6a6b2-08a3-46da-aa61-e6914f8acd1f" name="Changes" comment="compatibility with differential expression analysis">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflow.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/workflow.config.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,35 +16,17 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev_mirna_workflow" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="46f4f7be-2936-42b9-a466-f6e14996b829" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="2ri9j4ohi1XZh0EQS03zWBPWA8r" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.snakecharm.framework.SmkFrameworkConfigurableProvider",
-    "vue.rearranger.settings.migration": "true"
+    "settings.editor.selected.configurable": "com.jetbrains.snakecharm.framework.SmkFrameworkConfigurableProvider"
   }
 }]]></component>
   <component name="RunManager">
@@ -160,30 +145,17 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="5ca3ceeb-eef0-47eb-9f38-7beca4873975" name="Changes" comment="" />
-      <created>1737031159912</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1737031159912</updated>
-      <workItem from="1737031161137" duration="236000" />
-      <workItem from="1737031409247" duration="981000" />
-    </task>
-    <task id="LOCAL-00001" summary="rm">
+    <task id="LOCAL-00001" summary="compatibility with differential expression analysis">
       <option name="closed" value="true" />
-      <created>1737032214519</created>
+      <created>1737035756769</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1737032214519</updated>
+      <updated>1737035756769</updated>
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -197,7 +169,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="rm" />
-    <option name="LAST_COMMIT_MESSAGE" value="rm" />
+    <MESSAGE value="new ref + compatibility with differential expression analysis" />
+    <MESSAGE value="compatibility with differential expression analysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="compatibility with differential expression analysis" />
   </component>
 </project>
